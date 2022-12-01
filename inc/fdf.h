@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:54:02 by clvicent          #+#    #+#             */
-/*   Updated: 2022/11/24 16:06:51 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:53:49 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,38 +43,35 @@ typedef struct s_grid {
 	int		min_alt;
 	int		**tab;
 	char	*str;
+	
 }	t_grid;
 
-# ifndef COLOR_MAX 
-#  define COLOR_MAX
-# endif
-# ifndef COLOR_MIN
-#  define COLOR_MIN
-# endif
-# ifndef CURRENT_CP
-#  define CURRENT_CP (color / (grid->max_alt / grid->tab[grid->index_y][grid->index_x]))
-# endif
-# ifndef CURRENT_CN
-#  define CURRENT_CN (color / (grid->min_alt / grid->tab[grid->index_y][grid->index_x]))
-# endif
-
+// main
 int		main(void);
-void	ft_grid(t_data *img, t_grid *grid);
 
+
+//utils
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 int 	get_rgb(int r, int g, int b);
 int		width_and_length(t_grid *grid, t_data *img);
 int		get_n_col(char *str);
 void	l_c_size(t_grid *grid);
 
+// input_utils
 int		input_checker(char *str);
 int		ft_isdigit(char c);
 int		input_maker(t_grid *grid);
 int		ft_atoi(const char *str);
 int		how_many_d(char *str);
 
+//tools
 void	set_alt(t_grid *grid);
+int		current_color(int i, t_grid *grid, int alt);
+void	ft_grid(t_data *img, t_grid *grid);
+void	color_line(t_grid *grid, t_data *img, int x, int y);
+int		get_pos(int i, t_grid *grid, char c);
 
+//ft_split
 char	**ft_split(char const *s, char c);
 char	**ft_exit(char **strs);
 

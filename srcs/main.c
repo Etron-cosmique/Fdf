@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:57:29 by clvicent          #+#    #+#             */
-/*   Updated: 2022/11/23 19:14:37 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/01 14:18:32 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(void)
 	t_data	img;
 	t_grid	grid;
 
+	grid.index_x = 0;
+	grid.index_y = 0;
 	mlx = mlx_init();
 	win = mlx_new_window(mlx, 1920, 1080, "fdf");
 	img.img = mlx_new_image(mlx, 1920, 1080);
