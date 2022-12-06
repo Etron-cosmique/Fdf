@@ -12,7 +12,8 @@ SOURCES =   main.c \
 			tools.c \
 			get_next_line.c \
 			get_next_line_utils.c \
-			ft_split.c
+			ft_split.c \
+			tools_2.c
 
 SRCS = $(addprefix $(DIR_S),$(SOURCES))
 

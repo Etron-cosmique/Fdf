@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:22:22 by clvicent          #+#    #+#             */
-/*   Updated: 2022/11/21 14:26:17 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/05 13:53:54 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5000
+#  define BUFFER_SIZE 10
 # endif
 
 char	*ft_strdup(char *s);

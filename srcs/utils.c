@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 12:39:35 by clvicent          #+#    #+#             */
-/*   Updated: 2022/11/23 18:37:42 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/06 15:19:42 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,19 @@ int get_rgb(int r, int g, int b)
 
 void	l_c_size(t_grid *grid)
 {
-	grid->size_p_x = 1919 / grid->size_x;
-	grid->size_p_y = 1079 / grid->size_y;
+	grid->size_p_x = (grid->scx - 1) / grid->size_x;
+	grid->size_p_y = (grid->scy - 1) / grid->size_y;
 	if (grid->size_p_x > grid->size_p_y)
 		grid->size_p_x = grid->size_p_y;
 	else
 		grid->size_p_y = grid->size_p_x;
+	
 }
 
-int	width_and_length(t_grid *grid, t_data *img)
+int	width_and_length(t_grid *grid)
 {
 	char	*line;
 	
-	(void)img;
 	line = NULL;
 	grid->str = get_next_line(grid->fd);
 	if (grid->str == NULL)

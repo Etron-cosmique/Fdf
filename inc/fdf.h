@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:54:02 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/01 13:53:49 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/06 17:16:20 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,21 @@ typedef struct s_grid {
 	int		min_alt;
 	int		**tab;
 	char	*str;
-	
+	int		start_x;
+	int		start_y;
+	int		scx;
+	int		scy;
+	int		alt_0;
 }	t_grid;
 
-// main
-int		main(void);
-
+//tools_2.c
+int		is_in_grid(int c_x, int c_y, t_grid *grid);
+void	struct_filer(t_grid *grid);
 
 //utils
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
 int 	get_rgb(int r, int g, int b);
-int		width_and_length(t_grid *grid, t_data *img);
+int		width_and_length(t_grid *grid);
 int		get_n_col(char *str);
 void	l_c_size(t_grid *grid);
 
@@ -66,10 +70,10 @@ int		how_many_d(char *str);
 
 //tools
 void	set_alt(t_grid *grid);
-int		current_color(int i, t_grid *grid, int alt);
+int		prev_color(int i, t_grid *grid, int alt);
 void	ft_grid(t_data *img, t_grid *grid);
 void	color_line(t_grid *grid, t_data *img, int x, int y);
-int		get_pos(int i, t_grid *grid, char c);
+void	get_pos(int x, int y, t_grid *grid);
 
 //ft_split
 char	**ft_split(char const *s, char c);

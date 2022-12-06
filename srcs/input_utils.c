@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:12:29 by clvicent          #+#    #+#             */
-/*   Updated: 2022/11/23 18:34:17 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/05 14:16:51 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ int	input_checker(char *str)
 		return (1);
 	while (str[i] && str[i] != '\n')
 	{
-		while (str[i] && ft_isdigit(str[i]))
-			i++;
 		if (!ft_isdigit(str[i]) && str[i] && str[i] != '\n' 
 			&& str[i] != ' ' && str[i] != '-' && str[i] != '+')
 			return (1);
