@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/08 20:57:43 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/14 20:25:42 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:43:39 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,37 +58,25 @@ int	ex_shader(int x_y, int next, t_grid *grid)
 {
 	float	range;
 	float	loc;
-	float	neg;
 
 	if (grid->c_alt > grid->next_alt)
 	{
-		neg = -grid->next_alt;
-		range = grid->c_alt + neg;
-		loc = ((1 - (neg / range)) * (float)grid->size_p_x);
-		printf("neg = %f\nrange = %f\n", neg, range);
+		range = -grid->next_alt;
+		range += grid->c_alt;
+		loc = ((1 - (-grid->next_alt / range)) * (float)grid->size_p_x);
 	}
 	else
 	{
-		neg = -grid->c_alt;
-		range = grid->next_alt + neg;
-		loc = ((neg / range) * (float)grid->size_p_x);
-		printf("neg = %f\nrange = %f\n", neg, range);
+		range = -grid->c_alt;
+		range += grid->next_alt;
+		loc = ((-grid->c_alt / range) * (float)grid->size_p_x);
 	}
 	if (x_y < (int)loc)
-	{
-		printf("%d < %f\n", x_y, loc);
-		grid->flag = 0;
 		return (reg_shader(prev_color(grid), 255, ((float)x_y / loc)));
-	}
 	else if (x_y == (int)loc)
-	{
-		printf("%d == %f\n", x_y, loc);
-		grid->flag = 0;
 		return (255);
-	}
 	if (x_y > (int)loc)
 	{
-		printf("%d > %f\n", x_y, loc);
 		grid->flag = 1;
 		return (reg_shader(255, next, (((float)x_y - loc) / (grid->size_p_x - loc))));
 	}
