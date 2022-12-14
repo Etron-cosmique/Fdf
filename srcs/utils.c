@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/19 12:39:35 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/06 15:19:42 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/08 20:57:55 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	l_c_size(t_grid *grid)
 		grid->size_p_x = grid->size_p_y;
 	else
 		grid->size_p_y = grid->size_p_x;
-	
 }
 
 int	width_and_length(t_grid *grid)

@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:54:02 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/06 17:16:20 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/14 19:51:21 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,18 @@ typedef struct s_grid {
 	int		scx;
 	int		scy;
 	int		alt_0;
+	int		next_alt;
+	int		c_alt;
+	int		flag;
 }	t_grid;
 
 //tools_2.c
 int		is_in_grid(int c_x, int c_y, t_grid *grid);
-void	struct_filer(t_grid *grid);
+int		color_maker(t_grid *grid, int x, int y);
+void	struct_filler(t_grid *grid);
+int		final_color(int x, int y, float ratio, t_grid *grid);
+int		next_color(t_grid *grid, char c);
+
 
 //utils
 void	my_mlx_pixel_put(t_data *img, int x, int y, int color);
@@ -70,13 +77,20 @@ int		how_many_d(char *str);
 
 //tools
 void	set_alt(t_grid *grid);
-int		prev_color(int i, t_grid *grid, int alt);
+int		prev_color(t_grid *grid);
 void	ft_grid(t_data *img, t_grid *grid);
-void	color_line(t_grid *grid, t_data *img, int x, int y);
+void	set_pix(t_grid *grid, t_data *img, int x, int y);
 void	get_pos(int x, int y, t_grid *grid);
 
 //ft_split
 char	**ft_split(char const *s, char c);
 char	**ft_exit(char **strs);
+
+// shades_and_color.c
+int		shade_zero(t_grid *grid, int color);
+int		splitter(int color, int flag);
+int 	reg_shader(int prev, int next, float ratio);
+int		ex_shader(int x, int y, t_grid *grid);
+int		x_y(int x, int y, t_grid *grid);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 13:57:29 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/06 15:19:53 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/08 18:33:19 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int ac, char **av)
 	if (-1 == width_and_length(&grid))
 		return (1);
 	l_c_size(&grid);
-	struct_filer(&grid);
+	struct_filler(&grid);
 	input_maker(&grid);
 	set_alt(&grid);
 	ft_grid(&img, &grid);

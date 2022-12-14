@@ -6,36 +6,11 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/23 17:20:09 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/06 17:15:47 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/14 20:28:14 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-// void	ft_grid(t_data *img, t_grid *grid)
-// {
-// 	int	y;
-// 	int	x;
-
-// 	x = grid->start_x;
-// 	while (x < (1920 - grid->start_x))
-// 	{
-// 		y = grid->start_y;
-// 		while (y < 1080 - grid->start_y)
-// 			color_line(grid, img, x, y++);
-// 		x += grid->size_p_x;
-// 		printf("grid->index_x = %d\ngrid->index_y = %d\n", grid->index_x, grid->index_y);
-// 	}
-// 	y = grid->start_y;
-// 	while (y < (1080 - grid->start_y))
-// 	{
-// 		x = grid->start_x;
-// 		while (x < 1920 - grid->start_x)
-// 			color_line(grid, img, x++, y);
-// 		y += grid->size_p_y;
-// 		// printf("grid->index_x = %d\ngrid->index_y = %d\n", grid->index_x, grid->index_y);
-// 	}
-// }
 
 void	ft_grid(t_data *img, t_grid *grid)
 {
@@ -48,9 +23,8 @@ void	ft_grid(t_data *img, t_grid *grid)
 		y = 0;
 		while (y < 1080)
 		{
-			// printf("y = %d\n", y);
 			if (is_in_grid(x, y, grid) == 0)
-				color_line(grid, img, x, y);
+				set_pix(grid, img, x, y);
 			y++;
 		}	
 		x++;
@@ -63,6 +37,7 @@ void	set_alt(t_grid *grid)
 	int	y;
 	
 	y = 0;
+
 	grid->min_alt = grid->tab[0][0];
 	grid->max_alt = grid->tab[0][0];
 	while (y < grid->size_y)
@@ -78,41 +53,49 @@ void	set_alt(t_grid *grid)
 		}
 		y++;
 	}
+	if (grid->min_alt >= 0)
+		grid->alt_0 = grid->min_alt;
+	if (grid->max_alt <= 0)
+		grid->alt_0 = grid->max_alt;
 }
 
-void	color_line(t_grid *grid, t_data *img, int x, int y)
+void	set_pix(t_grid *grid, t_data *img, int x, int y)
 {
-	int	alt_0;
 	int color;
 
 	get_pos(x, y, grid);
-	// printf("grid->index_x = %d\ngrid->index_y = %d\n", grid->index_x, grid->index_y);
-	color = current_color(255, grid, grid->alt_0);
-	if (grid->tab[grid->index_y][grid->index_x] > 0)
-		my_mlx_pixel_put(img, x, y, get_rgb(255, color, color));		
-	if (grid->tab[grid->index_y][grid->index_x] < 0)
-		my_mlx_pixel_put(img, x, y, get_rgb(color, color, 255));
-	if (grid->tab[grid->index_y][grid->index_x] == 0)
-		my_mlx_pixel_put(img, x, y, get_rgb(color, color, color));
+	if (x_y(x, y, grid) == 0)
+		grid->flag = 0;
+	color = color_maker(grid, x, y);
+	if (grid->c_alt > grid->alt_0 && grid->flag != 1)
+		my_mlx_pixel_put(img, x, y, get_rgb(255, splitter(color, 1), splitter(color, 2)));
+	if (grid->c_alt < grid->alt_0 && grid->flag != 1)
+		my_mlx_pixel_put(img, x, y, get_rgb(splitter(color, 2), splitter(color, 1), 255));
+	if (grid->c_alt > grid->alt_0 && grid->flag == 1)
+		my_mlx_pixel_put(img, x, y, get_rgb(splitter(color, 2), splitter(color, 1), 255));
+	if (grid->c_alt < grid->alt_0 && grid->flag == 1)
+		my_mlx_pixel_put(img, x, y, get_rgb(255, splitter(color, 1), splitter(color, 2)));
+	if (grid->c_alt == grid->alt_0)
+		my_mlx_pixel_put(img, x, y, shade_zero(grid, color));
 }
 
-int		prev_color(int i, t_grid *grid, int alt)
+int		prev_color(t_grid *grid)
 {
-	if (grid->tab[grid->index_y][grid->index_x] > 0)
-		i -= (i / (grid->max_alt / grid->tab[grid->index_y][grid->index_x]));
-	else if (grid->tab[grid->index_y][grid->index_x] < 0)
-		i -= (i / (grid->min_alt / grid->tab[grid->index_y][grid->index_x]));
-	else if (grid->tab[grid->index_y][grid->index_x] == alt)
-		return (i);
-	return (i);
+	float	x;
+
+	x = 255;
+	if (grid->c_alt > grid->alt_0)
+		x -= x / (float)(grid->max_alt / grid->c_alt);
+	if (grid->c_alt < grid->alt_0)
+		x -= x / (float)(grid->min_alt / grid->c_alt);
+	if (grid->c_alt == grid->alt_0)
+		return ((int)x);
+	return ((int)x);
 }
 
 void	get_pos(int x, int y, t_grid *grid)
 {
 	grid->index_y = (y - grid->start_y) / grid->size_p_y;
-	if (grid->index_y >= grid->size_y)
-		grid->index_y = grid->size_y - 1;
 	grid->index_x = (x - grid->start_x) / grid->size_p_x;
-	if (grid->index_x >= grid->size_x)
-		grid->index_x = grid->size_x - 1;
+	grid->c_alt = grid->tab[grid->index_y][grid->index_x];
 }
