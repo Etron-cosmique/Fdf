@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/21 18:12:29 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/05 14:16:51 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/19 12:00:41 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	input_checker(char *str)
 		return (1);
 	while (str[i] && str[i] != '\n')
 	{
-		if (!ft_isdigit(str[i]) && str[i] && str[i] != '\n' 
+		if (!ft_isdigit(str[i]) && str[i] && str[i] != '\n'
 			&& str[i] != ' ' && str[i] != '-' && str[i] != '+')
 			return (1);
 		else
@@ -74,27 +74,27 @@ int	input_checker(char *str)
 	return (0);
 }
 
-int	input_maker(t_grid *grid)
+int	input_maker(t_fdf *f)
 {
 	int	i;
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	i = 0;
 	y = 0;
-	grid->tab = malloc(sizeof(int *) * grid->size_y);
-	if (grid->tab == NULL)
+	f->tab = malloc(sizeof(int *) * f->m.size_y);
+	if (f->tab == NULL)
 		return (1);
-	while (grid->str && grid->str[i])
+	while (f->str && f->str[i])
 	{
 		x = 0;
-		grid->tab[y] = malloc(sizeof(int) * grid->size_x);
-		if (grid->tab[y] == NULL)
+		f->tab[y] = malloc(sizeof(int) * f->m.size_x);
+		if (f->tab[y] == NULL)
 			return (y);
-		while (x < grid->size_x)
+		while (x < f->m.size_x)
 		{
-			grid->tab[y][x] = ft_atoi(&grid->str[i]);
-			i += how_many_d(&(grid->str[i]));
+			f->tab[y][x] = ft_atoi(&f->str[i]);
+			i += how_many_d(&(f->str[i]));
 			x++;
 		}
 		y++;

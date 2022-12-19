@@ -6,7 +6,7 @@
 /*   By: clvicent <clvicent@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/11 17:32:08 by clvicent          #+#    #+#             */
-/*   Updated: 2022/12/05 14:00:29 by clvicent         ###   ########.fr       */
+/*   Updated: 2022/12/16 13:44:12 by clvicent         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,18 +100,4 @@ int	get_index(char *s)
 		i++;
 	}
 	return (-1);
-}
-
-int	get_line_len(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (i);
 }
